@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+import rovergame.graphics.Assets;
 import rovergame.graphics.ImageLoader;
 import rovergame.graphics.SpriteSheet;
 
@@ -18,9 +19,6 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	
-	private BufferedImage sheet1;
-	private BufferedImage map;
-	private SpriteSheet rockSheet;
 	
 	public Game (String title, int width, int height) {
 		this.width = width;
@@ -30,9 +28,7 @@ public class Game implements Runnable {
 
 	private void init() {
 		display = new Display(title, width, height);
-		map = ImageLoader.loadImage("/textures/marssurface.png");
-		sheet1 = ImageLoader.loadImage("/textures/rocksheet.png");
-		rockSheet = new SpriteSheet(sheet1);
+		Assets.init();
 		
 	}
 	
@@ -50,8 +46,13 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width, height); //clear screen every render
 		//Draw Here
 		
-		g.drawImage(map,0,0,null);
-		g.drawImage(rockSheet.crop(0,0,64,64),100,100,null);
+		g.drawImage(Assets.map, -1750, -1226, null);
+		g.drawImage(Assets.player, 300, 300, null);
+		g.drawImage(Assets.rock1, 0, 0, null);
+		g.drawImage(Assets.rock1, 100, 100, null);
+		g.drawImage(Assets.rock2, 300, 150, null);
+		g.drawImage(Assets.rock3, 500, 600, null);
+
 		
 		
 		//End Draw
