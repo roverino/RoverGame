@@ -2,11 +2,10 @@ package rovergame;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import rovergame.graphics.Assets;
-import rovergame.graphics.ImageLoader;
-import rovergame.graphics.SpriteSheet;
+import rovergame.states.GameState;
+import rovergame.states.State;
 
 public class Game implements Runnable {
 
@@ -19,6 +18,9 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	
+	//States
+	private State gameState;
+	
 	
 	public Game (String title, int width, int height) {
 		this.width = width;
@@ -30,13 +32,14 @@ public class Game implements Runnable {
 		display = new Display(title, width, height);
 		Assets.init();
 		
-	}
-	
-	int x=0;
-	
-	private void tick() {
-		x += 1;
+		gameState = new GameState();
+		State.setState(gameState); //gamestate is now the game
 		
+	}
+
+	private void tick() {
+		if(State.getState() != null) //if a gamestate exists
+			State.getState().tick(); //tick that gamestate
 	}
 	
 	private void render() {
@@ -49,12 +52,17 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width, height); //clear screen every render
 		//Draw Here
 		
+		/*
 		g.drawImage(Assets.map, -1750, -1226, null);
 		g.drawImage(Assets.player, 300, 300, null);
-		g.drawImage(Assets.rock1, x, 0, null);
+		g.drawImage(Assets.rock1, 0, 0, null);
 		g.drawImage(Assets.rock1, 100, 100, null);
 		g.drawImage(Assets.rock2, 300, 150, null);
 		g.drawImage(Assets.rock3, 500, 600, null);
+		*/
+		
+		if(State.getState() != null) //if a gamestate exists
+			State.getState().render(g); //render that gamestate 
 
 
 		
