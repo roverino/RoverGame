@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import rovergame.graphics.Assets;
 import rovergame.states.GameState;
+import rovergame.states.MenuState;
 import rovergame.states.State;
 
 public class Game implements Runnable {
@@ -20,6 +21,7 @@ public class Game implements Runnable {
 	
 	//States
 	private State gameState;
+	private State menuState;
 	
 	
 	public Game (String title, int width, int height) {
@@ -33,6 +35,7 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		gameState = new GameState();
+		gameState = new MenuState();
 		State.setState(gameState); //gamestate is now the game
 		
 	}
@@ -52,15 +55,15 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width, height); //clear screen every render
 		//Draw Here
 		
-		/*
+		
 		g.drawImage(Assets.map, -1750, -1226, null);
 		g.drawImage(Assets.player, 300, 300, null);
 		g.drawImage(Assets.rock1, 0, 0, null);
 		g.drawImage(Assets.rock1, 100, 100, null);
 		g.drawImage(Assets.rock2, 300, 150, null);
 		g.drawImage(Assets.rock3, 500, 600, null);
-		*/
 		
+	
 		if(State.getState() != null) //if a gamestate exists
 			State.getState().render(g); //render that gamestate 
 

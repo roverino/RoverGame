@@ -5,6 +5,7 @@ import java.awt.Graphics;
 //game states are anything like the game, main menu, settings menu, etc 
 public abstract class State {
 	
+	//GAMESTATE MANAGER
 	private static State currentState = null;
 	
 	public static void setState(State state) {
